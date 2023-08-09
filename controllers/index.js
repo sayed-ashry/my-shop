@@ -19,7 +19,6 @@ const postAddProduct = async (req, res, next) => {
       });
     }
     const { title } = req.body;
-    console.log(title);
     const product = await Product.create({ title: title });
     product.save();
     res.redirect("/");

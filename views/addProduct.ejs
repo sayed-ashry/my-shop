@@ -7,11 +7,13 @@
             <button class="btn btn-primary mt-2" type="submit">add</button>
         </form>
 
+
         <% if(validationErrors.length> 0){ %>
             <p class="text-center">
-                <%= validationErrors[0].msg %>
+                <%= validationErrors[0].msg%>
             </p>
             <% } %>
+
 
     </div>
     <%- include('./includes/end') %>
