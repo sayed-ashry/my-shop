@@ -6,7 +6,7 @@ const getIndex = (req, res) => {
 };
 
 const getAddProduct = (req, res) => {
-  res.render("addProduct", { validationErrors: [] });
+  res.render("addProduct", { validationErrors: [], product: {} });
 };
 
 const postAddProduct = async (req, res, next) => {
@@ -15,9 +15,10 @@ const postAddProduct = async (req, res, next) => {
     if (!errors.isEmpty()) {
       return res.render("addProduct", {
         validationErrors: errors.array(),
+        product: { ...req.body },
       });
     }
-    const title = req.body.title;
+    const { title } = req.body;
     console.log(title);
     const product = await Product.create({ title: title });
     product.save();

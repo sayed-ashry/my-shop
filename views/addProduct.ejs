@@ -1,12 +1,14 @@
 <%- include('./includes/head') %>
     <div class="row">
-        <form action="/addProduct" method="post">
-            <label for="title">title</label>
-            <input type="text" name="title">
-            <button type="submit">add</button>
+
+        <form class="mb-3" action="/addProduct" method="post">
+            <label class="form-label" for="title">title</label>
+            <input class="form-control" type="text" name="title" value="<%= product.title %>">
+            <button class="btn btn-primary mt-2" type="submit">add</button>
         </form>
+
         <% if(validationErrors.length> 0){ %>
-            <p>
+            <p class="text-center">
                 <%= validationErrors[0].msg %>
             </p>
             <% } %>
