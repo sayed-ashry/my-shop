@@ -1,0 +1,15 @@
+<%- include('./includes/head') %>
+    <div class="row">
+        <form action="/addProduct" method="post">
+            <label for="title">title</label>
+            <input type="text" name="title">
+            <button type="submit">add</button>
+        </form>
+        <% if(validationErrors.length> 0){ %>
+            <p>
+                <%= validationErrors[0].msg %>
+            </p>
+            <% } %>
+
+    </div>
+    <%- include('./includes/end') %>
