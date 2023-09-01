@@ -1,9 +1,11 @@
 import express from "express";
 
+import routes from "./routes/index.js";
+
 const app = express();
 
-app.use("/", (req, res) => {
-  res.json("Hello World!");
-});
+app.use(express.json());
+
+app.use(routes);
 
 app.listen(3000);
