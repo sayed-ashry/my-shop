@@ -1,11 +1,45 @@
+import { env } from "node:process";
 import express from "express";
-
-import routes from "./routes/index.js";
+import { connect } from "mongoose";
+import helmet from "helmet";
+import compression from "compression";
+import morgan from "morgan";
+import cors from "cors";
+import productRoutes from "./routes/product-routes.js";
+import usersRoutes from "./routes/user-routes.js";
 
 const app = express();
 
 app.use(express.json());
 
-app.use(routes);
+app.use(helmet());
+app.use(compression());
+app.use(morgan("dev"));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    headers: ["Content-Type", "Authorization"],
+  })
+);
 
-app.listen(3000);
+app.use(productRoutes);
+app.use(usersRoutes);
+
+app.use("*", (req, res) => {
+  res.status(404).json("this route not found");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
+
+try {
+  await connect(env.DB_URI);
+  app.listen(env.PORT);
+} catch (error) {
+  console.log(
+    "Failed to connect to database. Please check your database credentials and connection settings."
+  );
+}
