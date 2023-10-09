@@ -12,31 +12,31 @@ const createUser = (req, res) => {
   if (!errors.isEmpty()) {
     return res.json("some inputs wrong");
   }
-  const User = new User({
+  const user = new User({
     name: req.body.name,
     email: req.body.email,
   });
-  User.save();
+  user.save();
   res.json("User Created.");
 };
 
 const getUser = (req, res) => {
-  const UserId = req.params.UserId;
-  User.findById(UserId).then((data) => {
+  const userId = req.params.userId;
+  User.findById(userId).then((data) => {
     res.json(data);
   });
 };
 
 const deleteUser = (req, res) => {
-  const UserId = req.params.UserId;
-  User.findOneAndDelete(UserId).then(() => {
+  const userId = req.params.userId;
+  User.findOneAndDelete(userId).then(() => {
     res.json("User Deleted.");
   });
 };
 
 const updateUser = (req, res) => {
-  const UserId = req.params.UserId;
-  User.findByIdAndUpdate(UserId, { ...req.body }).then(() => {
+  const userId = req.params.userId;
+  User.findByIdAndUpdate(userId, { ...req.body }).then(() => {
     res.json("User Updated.");
   });
 };
