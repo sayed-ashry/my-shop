@@ -1,8 +1,21 @@
 import { Router } from "express";
+import { body } from "express-validator";
 import usersActions from "../controllers/users-controllers.js";
 
-const usersRoutes = Router();
+const userRoutes = Router();
 
-usersRoutes.route("/users").post(usersActions.createUser);
+userRoutes
+  .route("/users")
+  .get(usersActions.getAllusers)
+  .post(
+    [body("name").notEmpty(), body("email").notEmpty()],
+    usersActions.createUser
+  );
 
-export default usersRoutes;
+userRoutes
+  .route("/users/:userId")
+  .get(usersActions.getUser)
+  .delete(usersActions.deleteUser)
+  .patch(usersActions.updateUser);
+
+export default userRoutes;

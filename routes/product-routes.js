@@ -1,14 +1,20 @@
 import { Router } from "express";
-import createValidate from "../middleware/validate.js";
+import { body } from "express-validator";
 import productsActions from "../controllers/products-controllers.js";
 
 const productRoutes = Router();
 
-
 productRoutes
   .route("/products")
   .get(productsActions.getAllProducts)
-  .post(createValidate(), productsActions.createProduct);
+  .post(
+    [
+      body("title").notEmpty(),
+      body("price").notEmpty(),
+      body("description").notEmpty(),
+    ],
+    productsActions.createProduct
+  );
 
 productRoutes
   .route("/products/:productId")

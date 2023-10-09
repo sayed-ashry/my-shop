@@ -1,6 +1,5 @@
-import { validationResult } from "express-validator";
-
 import Product from "../models/product.js";
+import { validationResult } from "express-validator";
 
 const getAllProducts = (req, res) => {
   Product.find().then((data) => {
@@ -11,13 +10,15 @@ const getAllProducts = (req, res) => {
 const createProduct = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json({ msg: "title should more than 3" });
+    return res.json("some inputs wrong");
   }
   const product = new Product({
     title: req.body.title,
+    price: req.body.price,
+    description: req.body.description,
   });
   product.save();
-  res.json("created");
+  res.json("Product Created.");
 };
 
 const getProduct = (req, res) => {
@@ -30,14 +31,14 @@ const getProduct = (req, res) => {
 const deleteProduct = (req, res) => {
   const productId = req.params.productId;
   Product.findOneAndDelete(productId).then(() => {
-    res.json("deleted");
+    res.json("Product Deleted.");
   });
 };
 
 const updateProduct = (req, res) => {
   const productId = req.params.productId;
   Product.findByIdAndUpdate(productId, { ...req.body }).then(() => {
-    res.json("updated");
+    res.json("Product Updated.");
   });
 };
 

@@ -24,10 +24,8 @@ express + nodemon .... etc
 9-handle db faile error
 10- add helmet moragn cors comperssion
 11- finish main file (index.js)
-12- creat CRUD opertaions for product
-
-
-next edit product model and actions and validation
-    
+12- creat CRUD opertaions for product + validation
+================
+validation
 
 
