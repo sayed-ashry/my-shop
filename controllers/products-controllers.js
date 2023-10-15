@@ -10,12 +10,11 @@ const getAllProducts = (req, res) => {
 const createProduct = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.json("some inputs wrong");
+    return res.json(errors.array()[0].msg);
   }
   const product = new Product({
     title: req.body.title,
     price: req.body.price,
-    description: req.body.description,
   });
   product.save();
   res.json("Product Created.");
@@ -30,7 +29,7 @@ const getProduct = (req, res) => {
 
 const deleteProduct = (req, res) => {
   const productId = req.params.productId;
-  Product.findOneAndDelete(productId).then(() => {
+  Product.deleteOne({ _id: productId }).then(() => {
     res.json("Product Deleted.");
   });
 };

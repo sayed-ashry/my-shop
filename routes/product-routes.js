@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body } from "express-validator";
+import productValidator from "../middlewares/validation.js";
 import productsActions from "../controllers/products-controllers.js";
 
 const productRoutes = Router();
@@ -7,14 +7,7 @@ const productRoutes = Router();
 productRoutes
   .route("/products")
   .get(productsActions.getAllProducts)
-  .post(
-    [
-      body("title").notEmpty(),
-      body("price").notEmpty(),
-      body("description").notEmpty(),
-    ],
-    productsActions.createProduct
-  );
+  .post(productValidator, productsActions.createProduct);
 
 productRoutes
   .route("/products/:productId")

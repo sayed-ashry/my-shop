@@ -6,7 +6,6 @@ import compression from "compression";
 import morgan from "morgan";
 import cors from "cors";
 import productRoutes from "./routes/product-routes.js";
-import userRoutes from "./routes/user-routes.js";
 
 const app = express();
 
@@ -24,7 +23,6 @@ app.use(
 );
 
 app.use(productRoutes);
-app.use(userRoutes);
 
 app.use("*", (req, res) => {
   res.status(404).json("this route not found");
