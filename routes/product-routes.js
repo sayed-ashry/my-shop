@@ -1,5 +1,5 @@
 import { Router } from "express";
-import productValidator from "../middlewares/validation.js";
+import productValidator from "../middlewares/product-validation.js";
 import productsActions from "../controllers/products-controllers.js";
 
 const productRoutes = Router();

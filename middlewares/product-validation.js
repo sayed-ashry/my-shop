@@ -21,4 +21,5 @@ const productValidator = [
       }
     }),
 ];
+
 export default productValidator;
