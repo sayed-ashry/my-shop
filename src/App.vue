@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+        <h1 class="text-center text-primary">Products</h1>
+        <ul class="list-group">
+            <li class="list-group-item text-primary" v-for="product in products" :key="product.id">
+                {{ product.title }}
+            </li>
+        </ul>
+    </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    data() {
+        return {
+            products: [],
+        };
+    },
+    methods: {
+        async getdata() {
+            const response = await fetch("http://localhost:3000/products");
+            const data = await response.json();
+            this.products = data;
+        },
+    },
+    mounted() {
+        this.getdata();
+    },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
